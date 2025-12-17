@@ -1,10 +1,8 @@
 from src.langgraphagenticai.main import load_langgraph_agenticai_app
 import os
+import streamlit as st
 from dotenv import load_dotenv
-load_dotenv() ## aloading all the environment variable
-
-os.environ["TAVILY_API_KEY"]=os.getenv("TAVILY_API_KEY")
-os.environ["GROQ_API_KEY"]=os.getenv("GROQ_API_KEY")
+load_dotenv() ## loading all the environment variable
 
 if __name__=="__main__":
     load_langgraph_agenticai_app()
