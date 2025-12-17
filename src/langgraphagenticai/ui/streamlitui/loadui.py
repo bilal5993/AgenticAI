@@ -8,7 +8,30 @@ class LoadStreamlitUI:
         self.config=Config()
         self.user_controls={}
 
+    def login(self):
+        """Login form using Streamlit secrets"""
+        st.sidebar.subheader("Login")
+        username = st.sidebar.text_input("Username")
+        password = st.sidebar.text_input("Password", type="password")
+        login_btn = st.sidebar.button("Login")
+
+        if login_btn:
+            users = st.secrets["users"]
+            if username in users and password == users[username]:
+                st.session_state["logged_in"] = True
+                st.session_state["username"] = username
+                st.success(f"Logged in as {username}")
+            else:
+                st.session_state["logged_in"] = False
+                st.error("❌ Invalid username or password")
+
+
     def load_streamlit_ui(self):
+        # Check if user is logged in
+        if "logged_in" not in st.session_state or not st.session_state["logged_in"]:
+            self.login()
+            return  # Stop loading rest of UI until login succeeds
+        
         st.set_page_config(page_title= "🤖 " + self.config.get_page_title(), layout="wide")
         st.header("🤖 " + self.config.get_page_title())
         st.markdown("<i style='color:gray;'>This chatbot has been developed by <b>Bilal Bhat</b> and will be continuously enhanced into a more advanced agentic AI system. It is currently in an active development phase.</i>",

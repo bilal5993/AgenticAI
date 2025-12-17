@@ -15,6 +15,12 @@ def load_langgraph_agenticai_app():
 
     ##Load UI
     ui=LoadStreamlitUI()
+
+    # First, check login
+    if "logged_in" not in st.session_state or not st.session_state["logged_in"]:
+        ui.login()  # Show login form
+        return     # Stop until user logs in
+
     user_input=ui.load_streamlit_ui()
 
     if not user_input:
