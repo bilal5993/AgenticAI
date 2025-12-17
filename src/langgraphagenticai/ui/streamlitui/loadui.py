@@ -11,6 +11,9 @@ class LoadStreamlitUI:
     def load_streamlit_ui(self):
         st.set_page_config(page_title= "🤖 " + self.config.get_page_title(), layout="wide")
         st.header("🤖 " + self.config.get_page_title())
+        st.markdown("<i style='color:gray;'>This chatbot has been developed by <b>Bilal Bhat</b> and will be continuously enhanced into a more advanced agentic AI system. It is currently in an active development phase.</i>",
+                    unsafe_allow_html=True)
+
 
 
         with st.sidebar:
