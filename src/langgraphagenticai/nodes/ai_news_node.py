@@ -51,7 +51,7 @@ class AiNewsNode:
         news_items = self.state['news_data']
 
         prompt_template = ChatPromptTemplate.from_messages([
-            ("system", """Summarize AI news articles , kashmir's cement industries news and other imprtant news about kashmir into markdown format. For each item include:
+            ("system", """Summarize AI news articles, jammu and kashmir's cement industries news and other most imprtant news about kashmir and summarize these news into markdown format. For each item include:
             - Date in **YYYY-MM-DD** format in IST timezone
             - Concise sentences summary from latest news
             - Sort news by date wise (latest first)

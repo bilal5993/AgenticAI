@@ -22,6 +22,7 @@ class LoadStreamlitUI:
                 st.session_state["username"] = username
                 # Auto-populate GROQ API key from secrets
                 st.session_state["GROQ_API_KEY"] = st.secrets["GROQ"]["api_key"]
+                st.session_state["TAVILY_API_KEY"] = st.secrets["GROQ"]["tavily_api_key"]
                 # st.success(f"Logged in as {username}")
             else:
                 st.session_state["logged_in"] = False
@@ -70,8 +71,9 @@ class LoadStreamlitUI:
             self.user_controls["selected_usecase"]=st.selectbox("Select Usecases",usecase_options)
 
             if self.user_controls["selected_usecase"] in ["Chatbot with Web", "AI News"]:
-                os.environ["TAVILY_API_KEY"]=self.user_controls["TAVILY_API_KEY"]=st.session_state["TAVILY_API_KEY"]=st.text_input("TAVILY API KEY",type="password")
-
+                # os.environ["TAVILY_API_KEY"]=self.user_controls["TAVILY_API_KEY"]=st.session_state["TAVILY_API_KEY"]=st.text_input("TAVILY API KEY",type="password")
+                self.user_controls["TAVILY_API_KEY"]=st.session_state["TAVILY_API_KEY"]
+                st.text_input("TAVILY API KEY",value=self.user_controls["TAVILY_API_KEY"], type="password", disabled=True)
 
                 # Validate API key
                 if not self.user_controls["TAVILY_API_KEY"]:
