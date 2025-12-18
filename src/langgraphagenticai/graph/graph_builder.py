@@ -57,14 +57,34 @@ class GraphBuilder:
 
         ai_news_node=AiNewsNode(self.llm)
 
+        ## Define the tool and tool node
+        tools=get_tools()
+        tool_node=create_tool_node(tools)
+
+        ## Define the chatbot node
+
+        obj_chatbot_with_node=ChatbotWithToolNode(self.llm)
+        chatbot_node=obj_chatbot_with_node.create_chatbot(tools)
+
         self.graph_builder.add_node("fetch_news", ai_news_node.fetch_news)
+        self.graph_builder.add_node("chatbot",chatbot_node)
+        self.graph_builder.add_node("tools",tool_node)
         self.graph_builder.add_node("summarize_news", ai_news_node.summarize_news)
         self.graph_builder.add_node("save_result", ai_news_node.save_result)
 
+        # self.graph_builder.add_edge(START,"chatbot")
+        # self.graph_builder.add_conditional_edges("chatbot",tools_condition)
+        # self.graph_builder.add_edge("tools","chatbot")
+        # # self.graph_builder.add_edge(START,"fetch_news")
+        # # self.graph_builder.add_edge("tools","fetch_news")
+        # # self.graph_builder.add_conditional_edges("fetch_news",tools_condition)
+        # # self.graph_builder.add_edge("tools","fetch_news")
+        # self.graph_builder.add_edge("chatbot","summarize_news")
+        # self.graph_builder.add_edge("summarize_news","save_result")
+        # self.graph_builder.add_edge("save_result", END)
+
         self.graph_builder.add_edge(START,"fetch_news")
-        self.graph_builder.add_conditional_edges("fetch_news",tools_condition)
-        self.graph_builder.add_edge("tools","fetch_news")
-        self.graph_builder.add_edge("fetch_news","summarize_news")
+        self.graph_builder.add_edge("fetch_news", "summarize_news")
         self.graph_builder.add_edge("summarize_news","save_result")
         self.graph_builder.add_edge("save_result", END)
 

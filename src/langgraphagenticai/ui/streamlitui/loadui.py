@@ -38,6 +38,9 @@ class LoadStreamlitUI:
         st.header("🤖 " + self.config.get_page_title())
         st.markdown("<i style='color:gray;'>This chatbot has been developed by <b>Bilal Bhat</b> and will be continuously enhanced into a more advanced agentic AI system. It is currently in an active development phase.</i>",
                     unsafe_allow_html=True)
+        
+        st.session_state.IsFetchButtonClicked = False
+        st.session_state.timeframe = ''
 
 
 
